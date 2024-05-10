@@ -17,7 +17,6 @@ header {
 }
 
 .main-left {
-    border: 1px solid red;
     width: 15vw;
     height: 100vh;
     background-color: rgb#DFDFDF;
@@ -25,9 +24,10 @@ header {
 }
 
 .main-right {
-    border: 1px solid red;
     width: 100vw;
     height: 100vh;
+    border: 2px solid black;
+
 }
 
 .main-right img {
@@ -58,16 +58,15 @@ section {
 }
 
 .section-left {
-    border: 1px solid red;
     width: 15vw;
     height: 100vh;
     background-color: rgb#DFDFDF;
 }
 
 .section-right-01 {
-    border: 1px solid red;
     width: 85vw;
     height: 100vh;
+    border: 2px solid black;
 }
 
 .card {
@@ -101,6 +100,7 @@ section {
     align-items: center;
     width: 85vw;
     height: auto;
+    border: 2px solid black;
 }
 
 .button-section-02 {
@@ -114,17 +114,17 @@ section {
 }
 
 .section-right-03 {
-    border: 1px solid red;
     width: 85vw;
     height: auto;
+    border: 2px solid black;
+
 }
 
 .background {
-    border: 1px solid red;
     width: 60vw;
-    height: 70vh;
+    height: 80vh;
     margin-left: 12vw;
-    margin-top: 14vh;
+    margin-top: 10vh;
     background-color: #DFDFDF;
 }
 
@@ -143,4 +143,5 @@ section {
     width: 25vw;
     height: 5vh;
     font-size: 1vw;
+
 }

@@ -115,5 +115,13 @@ function limparCamposDoFormulario() {
     }
 }
 
+function redirecionarParaListAll() {
+    window.location.href = "listAll.html";
+}
+
+function redirecionarParaListMonth() {
+    window.location.href = "listMonth.html";
+}
+
 
 
