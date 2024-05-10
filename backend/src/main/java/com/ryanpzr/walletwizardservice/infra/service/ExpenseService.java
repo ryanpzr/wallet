@@ -63,7 +63,7 @@ public class ExpenseService {
 
     public Page<Expense> listExpenseMonth(String dateParam, Pageable pageable) {
         try {
-            Page<Expense> expensesPage = repository.listarPageWithYear(dateParam, pageable);
+            Page<Expense> expensesPage = repository.listPageWithYear(dateParam, pageable);
             validarListExpenseMonthList.validar(expensesPage);
 
             return expensesPage;
@@ -74,7 +74,7 @@ public class ExpenseService {
     }
 
     public Page<Expense> listExpense(Pageable pageable) {
-        Page<Expense> expensesPage = repository.findAll(pageable);
+        Page<Expense> expensesPage = repository.listAllPages(pageable);
         validarListExpense.validar(expensesPage);
 
         return expensesPage;
@@ -86,6 +86,8 @@ public class ExpenseService {
             if (paramNotFound.isEmpty()) {
                 throw new EntityNotFoundException("Registro não encontrado!");
             }
+
+            System.out.println(paramNotFound);
 
             repository.atualizarTotalIncome(nomeDaCompra, mesParam);
             repository.deletarGasto(nomeDaCompra);
