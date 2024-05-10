@@ -26,8 +26,8 @@ public class ExpenseController {
         return ResponseEntity.ok().body(listExpense);
     }
 
-    @GetMapping("/listMonth")
-    public ResponseEntity<Page<Expense>> listExpenseMonth(@RequestParam(required = false) String dateParam, Pageable pageable){
+    @GetMapping("/listMonth/{dateParam}")
+    public ResponseEntity<Page<Expense>> listExpenseMonth(@PathVariable("dateParam") String dateParam, Pageable pageable){
         Page<Expense> listExpense = service.listExpenseMonth(dateParam, pageable);
         return ResponseEntity.ok().body(listExpense);
     }
@@ -39,9 +39,9 @@ public class ExpenseController {
         return ResponseEntity.ok().body(data);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{nomeDaCompra}/{mes}")
     @Transactional
-    public ResponseEntity<Expense> deleteExpense(@RequestParam String nomeDaCompra, String mes) {
+    public ResponseEntity<Expense> deleteExpense(@PathVariable("nomeDaCompra") String nomeDaCompra, @PathVariable("mes") String mes) {
         Expense data = service.deleteExpense(nomeDaCompra, mes);
         return ResponseEntity.ok().body(data);
     }
