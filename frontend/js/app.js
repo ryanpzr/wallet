@@ -1,9 +1,62 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const main = document.getElementById('firstSection');
+
+    function carregarDadosReceita() {
+        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTQ1MzYyNH0.JuBLybeWQsv76grkIN9-02L9L_DB9qe0W0KTN6wFxrQ'
+
+        fetch('http://localhost:8080/api/income', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token // Adicionando o token JWT ao cabeçalho de autorização
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao buscar dados do servidor.');
+                }
+            })
+            .then(data => {
+                if (data.content && Array.isArray(data.content)) {
+                    // Verifica se a propriedade "content" existe e se é um array
+                    data.content.forEach(card => {
+                        const novoItem = criarElementoCard(card);
+                        main.appendChild(novoItem);
+                    });
+                } else {
+                    throw new Error('Formato de dados inválido: propriedade "content" não encontrada ou não é um array.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados:', error.message);
+            });
+    }
+
+    carregarDadosReceita();
+
+    function criarElementoCard(card) {
+        const novoItem = document.createElement('div');
+        novoItem.classList.add('cardStyle');
+
+        novoItem.innerHTML = `
+        <h1 class="cardH1">${card.mes}</h1><br>
+        <p class="cardP">Empresa: ${card.nomeEmpresa}</p>
+        <p class="cardP">Receita: R$${card.receita}</p>
+        <p class="cardP">Total: R$${card.total}</p>
+    `;
+
+        return novoItem;
+    }
+});
+
 function enviarDadosParaBackend(event) {
     event.preventDefault(); // Evita o comportamento padrão do botão, que é enviar o formulário e recarregar a página
 
     try {
         // Obtendo o token JWT
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTM3ODUyNX0.r5Z39-GULubN4wlLtQQzJ5W_0e0b452qP0SIpq9x8fg';
+        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTQ1MzYyNH0.JuBLybeWQsv76grkIN9-02L9L_DB9qe0W0KTN6wFxrQ'
 
         var nome = document.getElementById('nome').value;
         if (!nome) {
