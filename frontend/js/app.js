@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const main = document.getElementById('firstSection');
 
     function carregarDadosReceita() {
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTQ1MzYyNH0.JuBLybeWQsv76grkIN9-02L9L_DB9qe0W0KTN6wFxrQ'
+        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTU3MDA0MX0.PjX40ER_2VgLkBHETYmsSdhi_V1Vke9GsR0MHeVN4KY'
 
-        fetch('http://localhost:8080/api/income', {
+        fetch('http://localhost:8080/api/income?sort=id', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ function enviarDadosParaBackend(event) {
 
     try {
         // Obtendo o token JWT
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTQ1MzYyNH0.JuBLybeWQsv76grkIN9-02L9L_DB9qe0W0KTN6wFxrQ'
+        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTU3MDA0MX0.PjX40ER_2VgLkBHETYmsSdhi_V1Vke9GsR0MHeVN4KY'
 
         var nome = document.getElementById('nome').value;
         if (!nome) {
