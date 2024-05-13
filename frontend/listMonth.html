@@ -9,18 +9,16 @@
 </head>
 
 <body>
-    <header>
+    <section>
+        <form id="monthForm">
+            <h2>Digite o Nome do Mês</h2>
+            <label for="monthInput">Digite o nome do mês:</label><br>
+            <input type="text" id="monthInput" name="monthName" required><br>
+            <button onclick="carregarDadosReceita()">Enviar</button>
+        </form>
+    </section>
 
-        <div class="card">
-            <h1>nomeCompra</h1>
-            <br>
-            <p>valorCompra:</p>
-            <p>descricao:</p>
-            <p>date:</p>
-            <p>category:</p>
-        </div>
-
-    </header>
+    <header id="listExpensePerMonth"></header>
 
     <script src="js/listMonth.js"></script>
 </body>

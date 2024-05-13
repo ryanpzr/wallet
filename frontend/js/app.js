@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const main = document.getElementById('firstSection');
+    const main = document.getElementById('listAll');
 
     function carregarDadosReceita() {
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTU3MDA0MX0.PjX40ER_2VgLkBHETYmsSdhi_V1Vke9GsR0MHeVN4KY'
+        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTY0MjU0Mn0.pDfZj-Vt7TmCSV-EGdM0T2Am8iwAnLoSCYcoPh_1E9E'
 
         fetch('http://localhost:8080/api/income?sort=id', {
             method: 'GET',
@@ -56,7 +56,7 @@ function enviarDadosParaBackend(event) {
 
     try {
         // Obtendo o token JWT
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTU3MDA0MX0.PjX40ER_2VgLkBHETYmsSdhi_V1Vke9GsR0MHeVN4KY'
+        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTY0MjU0Mn0.pDfZj-Vt7TmCSV-EGdM0T2Am8iwAnLoSCYcoPh_1E9E'
 
         var nome = document.getElementById('nome').value;
         if (!nome) {
@@ -174,6 +174,20 @@ function redirecionarParaListAll() {
 
 function redirecionarParaListMonth() {
     window.location.href = "listMonth.html";
+}
+
+function redirect(idSection) {
+    window.location.href = "#" + idSection;
+    // Remove a classe 'selected' de todos os botões
+    var buttons = document.querySelectorAll('.main-left button');
+    buttons.forEach(function (button) {
+        button.classList.remove('selected');
+    });
+    // Adiciona a classe 'selected' ao botão clicado
+    var selectedButton = document.getElementById('btn' + idSection.charAt(0).toUpperCase() + idSection.slice(1));
+    if (selectedButton) {
+        selectedButton.classList.add('selected');
+    }
 }
 
 

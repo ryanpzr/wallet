@@ -65,16 +65,17 @@ section {
 
 .section-right-01 {
     width: 85vw;
-    height: 100vh;
+    height: auto;
     border: 2px solid black;
 }
 
 .cardStyle {
     display: inline-block;
     width: 11vw;
-    height: auto;
+    height: 25vh;
     background-color: white;
-    margin-top: 4%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     margin-left: 5%;
     margin-right: 0;
     padding: 10px;
