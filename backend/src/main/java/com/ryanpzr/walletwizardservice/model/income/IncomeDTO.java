@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
 public record IncomeDTO(
+        // DTO que recebe os dados da receita a ser cadastrada no banco de dados e realiza as validações necessárias
         @NotBlank(message = "Nome da Empresa em que você trabalha não pode ser nulo ou vazio")
         @Pattern(regexp = "[\\p{L}\\s]+", message = "Nome da Empresa em que você trabalha deve conter apenas letras e espaços")
         String nomeEmpresa,

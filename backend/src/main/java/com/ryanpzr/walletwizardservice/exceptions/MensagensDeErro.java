@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
+//Quando chamada, retorna uma mensagem ao usuario
 @Getter
 @Setter
 @AllArgsConstructor

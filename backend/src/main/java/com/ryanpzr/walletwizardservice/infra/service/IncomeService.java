@@ -23,6 +23,7 @@ public class IncomeService {
     @Autowired
     private ValidacaoListPageIncome validacaoListPageIncome;
 
+    // Insere uma receita a tabela Income
     public Income insertIncome(IncomeDTO incomeDTO) {
         try {
             validacaoFindByMes.validar(incomeDTO);
@@ -33,6 +34,7 @@ public class IncomeService {
         }
     }
 
+    // Lista todas as receitras cadastradas na tabela Income
     public Page<Income> listPageIncome(Pageable pageable) throws ListIsNullException {
         Page<Income> list = repository.findAll(pageable);
         validacaoListPageIncome.validar(list);

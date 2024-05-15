@@ -1,5 +1,6 @@
 package com.ryanpzr.walletwizardservice.exceptions;
 
+//Exception para verificar se a Categoria foi passada corretamente
 public class CategoriaInvalidaException extends Throwable {
     public CategoriaInvalidaException() {
     }

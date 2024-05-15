@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+// Entidade que cria a tabela de usuário no banco de dados
 @Entity(name = "users")
 @Table(name = "users")
 @Getter
@@ -30,12 +31,14 @@ public class User implements UserDetails {
     @Column(name = "role")
     private UserRole role;
 
+    // Recebe os dados de um usuário para que seja criado no banco de dados
     public User(String login, String password, UserRole role){
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
+    // Métodos do UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));

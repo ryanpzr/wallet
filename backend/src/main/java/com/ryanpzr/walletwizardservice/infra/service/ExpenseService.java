@@ -40,10 +40,13 @@ public class ExpenseService {
     @Autowired
     private ValidarListExpense validarListExpense;
 
+    // Insere um dado ao banco de dados e atualiza o total na tabela Income de acordo com o mês passado
     public Expense insertData(ExpenseDTO expensesDTO) {
 
+        // Roda as validações
         validarInsertDataExpenses.forEach(v -> v.validar(expensesDTO));
 
+        // Tenta realizar a operação, caso não de retorna uma exception
         try {
             String nomeMes = converterMes(expensesDTO.date());
             IncomeRepository.atualizarTotal(expensesDTO.valorCompra(), nomeMes);
@@ -56,11 +59,13 @@ public class ExpenseService {
         }
     }
 
+    // Retorna o mês passado em formato numérico em uma String do mês
     private String converterMes(LocalDate date) {
         int mes = date.getMonthValue();
         return Month.of(mes).getDisplayName(TextStyle.FULL, Locale.getDefault());
     }
 
+    // Lista os gastos cadastrados de acordo com o mês passado
     public Page<Expense> listExpenseMonth(String dateParam, Pageable pageable) {
         try {
             Page<Expense> expensesPage = repository.listPageWithYear(dateParam, pageable);
@@ -73,6 +78,7 @@ public class ExpenseService {
         }
     }
 
+    // Lista todos os gastos cadastrados
     public Page<Expense> listExpense(Pageable pageable) {
         Page<Expense> expensesPage = repository.listAllPages(pageable);
         validarListExpense.validar(expensesPage);
@@ -80,8 +86,10 @@ public class ExpenseService {
         return expensesPage;
     }
 
+    // Deleta um gasto de acordo com o nome e um mês passado como parametro
     public Expense deleteExpense(String nomeDaCompra, String mesParam) {
         try {
+            // Verifica se o parâmetro retornado não é nulo, se for retorna uma exception
             Optional<Expense> paramNotFound = repository.findByNomeCompra(nomeDaCompra);
             if (paramNotFound.isEmpty()) {
                 throw new EntityNotFoundException("Registro não encontrado!");
@@ -89,7 +97,10 @@ public class ExpenseService {
 
             System.out.println(paramNotFound);
 
+            // Atualiza o valor na tabela Income de acordo com o nome e o mês passado como parâmetro
             repository.atualizarTotalIncome(nomeDaCompra, mesParam);
+
+            // Por último, o gasto é deletado da tabela Expense
             repository.deletarGasto(nomeDaCompra);
 
         } catch (AopInvocationException ex) {

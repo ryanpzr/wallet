@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class TratadorDeErros {
-
-
+    // Classe que trata todos os erros de forma personalizada
     @ExceptionHandler(CategoriaInvalidaException.class)
     public ResponseEntity<MensagensDeErro> tratarErroIAE(CategoriaInvalidaException ex) {
         MensagensDeErro mensagem = new MensagensDeErro(HttpStatus.BAD_REQUEST, ex.getMessage());

@@ -18,12 +18,14 @@ public class IncomeController {
     @Autowired
     private IncomeService service;
 
+    //Lista todas os meses/receitas
     @GetMapping
     public ResponseEntity<Page<Income>> listIncome(Pageable pageable) throws ListIsNullException {
         Page<Income> data = service.listPageIncome(pageable);
         return ResponseEntity.ok().body(data);
     }
 
+    //Posta uma nova receita (APENAS USUARIOS COM A ROLE ADM PODE INSERIR UM NOVO DADO)
     @PostMapping
     public ResponseEntity<Income> insertIncome(@RequestBody @Valid IncomeDTO incomeDTO){
         Income data = service.insertIncome(incomeDTO);
