@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const main = document.getElementById('listAll');
 
     function carregarDadosReceita() {
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTY0MjU0Mn0.pDfZj-Vt7TmCSV-EGdM0T2Am8iwAnLoSCYcoPh_1E9E'
+        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTgxMDI1N30.eqoYofr5T9B5HUjGhqm7QRAkq3v4jfXA3wnUawVib3I'
 
         fetch('http://localhost:8080/api/income?sort=id', {
             method: 'GET',
@@ -56,45 +56,12 @@ function enviarDadosParaBackend(event) {
 
     try {
         // Obtendo o token JWT
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTY0MjU0Mn0.pDfZj-Vt7TmCSV-EGdM0T2Am8iwAnLoSCYcoPh_1E9E'
+        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTgxMDI1N30.eqoYofr5T9B5HUjGhqm7QRAkq3v4jfXA3wnUawVib3I'
 
         var nome = document.getElementById('nome').value;
-        if (!nome) {
-            alert("Nome não deve ser nulo.");
-            return;
-        } else if (!/^[a-zA-Z\s]+$/.test(nome)) {
-            alert("Nome deve conter apenas letras.");
-            return;
-        }
-
         var valor = document.getElementById('valor').value;
-        if (!valor) {
-            alert("Valor não deve ser nulo.");
-            return;
-        } else if (!/^\d+$/.test(valor)) {
-            alert("Valor deve conter apenas números.");
-            return;
-        }
-
         var resumo = document.getElementById('resumo').value;
-        if (!resumo) {
-            alert("Resumo não deve ser nulo.");
-            return;
-        } else if (!/^[a-zA-Z\s]+$/.test(resumo)) {
-            alert("Resumo deve conter apenas letras.");
-            return;
-        }
-
         var data = document.getElementById('data').value;
-        if (!data) {
-            alert("Data não deve ser nula.");
-            return;
-        } else if (!/^\d{4}-\d{2}-\d{2}$/.test(data)) {
-            alert("Data deve estar no formato (YYYY-MM-DD).");
-            return;
-        }
-
-
         var categoria = document.getElementById('categoria').value;
 
         var partesDaData = data.split("-");
