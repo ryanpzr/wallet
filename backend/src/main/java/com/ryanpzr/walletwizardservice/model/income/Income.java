@@ -4,8 +4,7 @@ import com.ryanpzr.walletwizardservice.model.expense.Expense;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
+// Entidade que cria a tabela no banco de dados e recebe os parâmetros do DTO
 @Entity(name = "Income")
 @Table(name = "Income")
 @Getter
@@ -24,6 +23,7 @@ public class Income {
     private Integer receita;
     private Double total;
 
+    // Recebe os parâmetros do DTO -> IncomeDTO
     public Income(IncomeDTO incomeDTO) {
         this.nomeEmpresa = incomeDTO.nomeEmpresa();
         this.mes = incomeDTO.mes();

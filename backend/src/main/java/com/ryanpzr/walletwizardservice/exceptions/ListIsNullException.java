@@ -1,5 +1,6 @@
 package com.ryanpzr.walletwizardservice.exceptions;
 
+//Verifica se a lista esta vindo nula
 public class ListIsNullException extends Throwable {
 
     public ListIsNullException() {

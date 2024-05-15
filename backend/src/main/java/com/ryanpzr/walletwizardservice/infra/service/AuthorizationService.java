@@ -12,6 +12,7 @@ public class AuthorizationService implements UserDetailsService {
     @Autowired
     UserRepository repository;
 
+    // Carrega o usuário pelo usuário passado na requisição
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByLogin(username);

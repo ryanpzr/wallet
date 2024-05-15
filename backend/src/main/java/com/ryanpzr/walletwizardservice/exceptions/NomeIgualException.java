@@ -1,5 +1,6 @@
 package com.ryanpzr.walletwizardservice.exceptions;
 
+//Exception para verificar se o nome passada já existe
 public class NomeIgualException extends Throwable {
     public NomeIgualException() {
     }
