@@ -11,23 +11,23 @@
 
     <header>
         <div class="main-left">
-            <button><img src="img/1.png"></button>
-            <button><img src="img/2.png"></button>
-            <button><img src="img/3.png"></button>
+            <button onclick="redirect('firstSection')"><img id="img01" src="img/1.png"></button>
+            <button onclick="redirect('secondSection')"><img id="img02" src="img/2.png"></button>
+            <button onclick="redirect('thirdSection')"><img id="img03" src="img/3.png"></button>
         </div>
         <div class="main-right">
             <img src="img/4.png">
         </div>
     </header>
 
-    <section>
+    <section id="firstSection">
         <div class="section-left"></div>
-        <div class="section-right-01" id="firstSection">
+        <div class="section-right-01" id="listAll">
 
         </div>
     </section>
 
-    <section>
+    <section id="secondSection">
         <div class="section-left"></div>
         <div class="section-right-02">
 
@@ -42,7 +42,7 @@
 
     </section>
 
-    <section>
+    <section id="thirdSection">
         <div class="section-left"></div>
         <div class="section-right-03">
 
@@ -61,7 +61,7 @@
                     <input type="text" id="resumo" name="resumo"><br><br>
 
                     <label for="data">Data da Compra:</label>
-                    <input type="text" id="data" name="data"><br><br>
+                    <input type="date" id="data" name="data"><br><br>
 
                     <label for="categoria">Categoria:</label>
                     <select id="categoria" name="categoria">
