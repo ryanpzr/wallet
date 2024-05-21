@@ -7,7 +7,7 @@ form.addEventListener('submit', function (event) {
 document.addEventListener('DOMContentLoaded', function () {
     const main = document.getElementById('listAll');
 
-    var token = localStorage.getItem('token'); // Recuperando o token do localStorage
+    var token = sessionStorage.getItem('token'); // Recuperando o token do sessionStorage
 
     function carregarDadosReceita() {
         console.log(token);
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function enviarDadosParaBackend() {
 
-    var token = localStorage.getItem('token'); // Recuperando o token do localStorage
+    var token = sessionStorage.getItem('token'); // Recuperando o token do sessionStorage
 
     try {
 
@@ -111,18 +111,12 @@ function enviarDadosParaBackend() {
                 }
             })
             .catch(error => {
-                console.error('Erro ao enviar os dados:', error
-
-                );
+                console.error('Erro ao enviar os dados:', error);
             });
-
-
 
     } catch (error) {
         console.error('Erro ao enviar os dados para o backend:', error);
-
     }
-
 }
 
 function limparCamposDoFormulario() {
@@ -142,11 +136,11 @@ function limparCamposDoFormulario() {
 }
 
 function redirecionarParaListAll() {
-    window.location.href = "listAll.html";
+    window.location.href = "listAllPage.html";
 }
 
 function redirecionarParaListMonth() {
-    window.location.href = "listMonth.html";
+    window.location.href = "listMonthPage.html";
 }
 
 function redirect(idSection) {

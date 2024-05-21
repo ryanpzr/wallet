@@ -34,20 +34,19 @@ function fetchToken() {
             .then(data => {
                 if (data.token) {
                     var token = data.token;
-                    localStorage.setItem('token', token);
+                    sessionStorage.setItem('token', token);
                     alert("Login realizado com sucesso!");
                     window.location.href = "mainPage.html";
                 } else {
+                    alert("Login inválido!");
                     throw new Error('Login inválido!');
                 }
             })
             .catch(error => {
                 console.error('Erro:', error);
-                alert("Erro ao recuperar o token: " + error.message);
             });
 
     } catch (error) {
         console.error('Erro ao enviar os dados para o backend:', error);
-        alert("Erro ao enviar os dados para o backend: " + error.message);
     }
 }
