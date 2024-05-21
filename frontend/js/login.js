@@ -25,12 +25,6 @@ function fetchToken() {
             },
             body: JSON.stringify(dados)
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao enviar os dados:' + response.statusText);
-                }
-                return response.json();
-            })
             .then(data => {
                 if (data.token) {
                     var token = data.token;
@@ -38,15 +32,16 @@ function fetchToken() {
                     alert("Login realizado com sucesso!");
                     window.location.href = "mainPage.html";
                 } else {
-                    alert("Login inválido!");
                     throw new Error('Login inválido!');
                 }
             })
             .catch(error => {
                 console.error('Erro:', error);
+                alert('Login inválido!');
             });
 
     } catch (error) {
         console.error('Erro ao enviar os dados para o backend:', error);
+        alert('Login inválido!');
     }
 }
