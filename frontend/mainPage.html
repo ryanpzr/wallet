@@ -4,18 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <title>Pagina principal</title>
+    <link rel="stylesheet" href="css/mainPage.css">
 </head>
 
 <body>
 
     <header>
         <div class="main-left">
-            <button onclick="redirect('firstSection')"><img id="img01" src="img/1.png"></button>
-            <button onclick="redirect('secondSection')"><img id="img02" src="img/2.png"></button>
-            <button onclick="redirect('thirdSection')"><img id="img03" src="img/3.png"></button>
+            <button class="leftButton" onclick="redirect('firstSection')"><img id="img01" src="img/1.png"></button>
+            <button class="leftButton" onclick="redirect('secondSection')"><img id="img02" src="img/2.png"></button>
+            <button class="leftButton" onclick="redirect('thirdSection')"><img id="img03" src="img/3.png"></button>
         </div>
         <div class="main-right">
+            <button class="buttonLogin" onclick="window.location.href='login.html'">Login</button>
             <img src="img/4.png">
         </div>
     </header>
@@ -50,7 +52,7 @@
 
                 <br>
                 <h1>Cadastrar Gasto</h1><br><br>
-                <form id="formInput" method="post" onsubmit="enviarDadosParaBackend(event)">
+                <form id="formInput" method="post" onsubmit="enviarDadosParaBackend()">
                     <label for="nome">Nome da compra:</label>
                     <input type="text" id="nome" name="nome"><br><br>
 

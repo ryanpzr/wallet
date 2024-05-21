@@ -1,8 +1,9 @@
+var token = localStorage.getItem('token');
+
 document.addEventListener('DOMContentLoaded', function () {
     const main = document.getElementById('ListAllExpenses');
 
     function carregarDadosReceita() {
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTgxMDI1N30.eqoYofr5T9B5HUjGhqm7QRAkq3v4jfXA3wnUawVib3I'
 
         fetch('http://localhost:8080/api/expense/list', {
             method: 'GET',
