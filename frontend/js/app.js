@@ -1,8 +1,16 @@
+const form = document.getElementById('formInput');
+form.addEventListener('submit', function (event) {
+    event.preventDefault(); // Previne o envio padrão do formulário
+    enviarDadosParaBackend(); // Chama a função para enviar os dados para o backend
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const main = document.getElementById('listAll');
 
+    var token = localStorage.getItem('token'); // Recuperando o token do localStorage
+
     function carregarDadosReceita() {
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTgxMDI1N30.eqoYofr5T9B5HUjGhqm7QRAkq3v4jfXA3wnUawVib3I'
+        console.log(token);
 
         fetch('http://localhost:8080/api/income?sort=id', {
             method: 'GET',
@@ -13,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => {
                 if (response.ok) {
-                    return response.json();
+                    return response.json(); // Convertendo a resposta para JSON
                 } else {
                     throw new Error('Erro ao buscar dados do servidor.');
                 }
@@ -51,12 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-function enviarDadosParaBackend(event) {
-    event.preventDefault(); // Evita o comportamento padrão do botão, que é enviar o formulário e recarregar a página
+function enviarDadosParaBackend() {
+
+    var token = localStorage.getItem('token'); // Recuperando o token do localStorage
 
     try {
-        // Obtendo o token JWT
-        var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3aXphcmRfc2VydmljZSIsInN1YiI6InJ5YW5wZXJlaXJhbGltYWRzQGdtYWlsLmNvbSIsImV4cCI6MTcxNTgxMDI1N30.eqoYofr5T9B5HUjGhqm7QRAkq3v4jfXA3wnUawVib3I'
 
         var nome = document.getElementById('nome').value;
         var valor = document.getElementById('valor').value;
@@ -72,7 +79,6 @@ function enviarDadosParaBackend(event) {
         var dataParaExtracao = new Date(ano, mes, dia);
         var dataNumero = dataParaExtracao.getMonth() + 1;
 
-        // Criando um objeto com os dados a serem enviados
         var dados = {
             nomeCompra: nome,
             valorCompra: valor,
