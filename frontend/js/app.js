@@ -5,63 +5,77 @@ form.addEventListener('submit', function (event) {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    const main = document.getElementById('listAll');
 
     var token = sessionStorage.getItem('token'); // Recuperando o token do sessionStorage
 
-    function carregarDadosReceita() {
-        console.log(token);
+    if (token == null) {
+        throw new Error("Faça login para aparecer as informações!")
 
-        fetch('http://localhost:8080/api/income?sort=id', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token // Adicionando o token JWT ao cabeçalho de autorização
-            }
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json(); // Convertendo a resposta para JSON
-                } else {
-                    throw new Error('Erro ao buscar dados do servidor.');
+    } else {
+        const main = document.getElementById('listAll');
+
+        function carregarDadosReceita() {
+            console.log(token);
+
+            fetch('http://localhost:8080/api/income?sort=id', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token // Adicionando o token JWT ao cabeçalho de autorização
                 }
             })
-            .then(data => {
-                if (data.content && Array.isArray(data.content)) {
-                    // Verifica se a propriedade "content" existe e se é um array
-                    data.content.forEach(card => {
-                        const novoItem = criarElementoCard(card);
-                        main.appendChild(novoItem);
-                    });
-                } else {
-                    throw new Error('Formato de dados inválido: propriedade "content" não encontrada ou não é um array.');
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao buscar dados:', error.message);
-            });
-    }
+                .then(response => {
+                    if (response.ok) {
+                        return response.json(); // Convertendo a resposta para JSON
+                    } else {
+                        throw new Error('Erro ao buscar dados do servidor.');
+                    }
+                })
+                .then(data => {
+                    if (data.content && Array.isArray(data.content)) {
+                        // Verifica se a propriedade "content" existe e se é um array
+                        data.content.forEach(card => {
+                            const novoItem = criarElementoCard(card);
+                            main.appendChild(novoItem);
+                        });
+                    } else {
+                        throw new Error('Formato de dados inválido: propriedade "content" não encontrada ou não é um array.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar dados:', error.message);
+                });
+        }
 
-    carregarDadosReceita();
+        carregarDadosReceita();
 
-    function criarElementoCard(card) {
-        const novoItem = document.createElement('div');
-        novoItem.classList.add('cardStyle');
+        function criarElementoCard(card) {
+            const novoItem = document.createElement('div');
+            novoItem.classList.add('cardStyle');
 
-        novoItem.innerHTML = `
+            novoItem.innerHTML = `
         <h1 class="cardH1">${card.mes}</h1><br>
         <p class="cardP">Empresa: ${card.nomeEmpresa}</p>
         <p class="cardP">Receita: R$${card.receita}</p>
         <p class="cardP">Total: R$${card.total}</p>
     `;
 
-        return novoItem;
+            return novoItem;
+        }
+
+        checkTokenExpiration();
     }
+
 });
 
 function enviarDadosParaBackend() {
 
     var token = sessionStorage.getItem('token'); // Recuperando o token do sessionStorage
+
+    if (token == null) {
+        alert("Faça login para realizar uma operação")
+        throw new Error('Usúario não logado.');
+    }
 
     try {
 
@@ -136,10 +150,25 @@ function limparCamposDoFormulario() {
 }
 
 function redirecionarParaListAll() {
-    window.location.href = "listAllPage.html";
+    var token = sessionStorage.getItem('token'); // Recupera o token do sessionStorage
+
+    if (token == null) {
+        alert("Faça login para realizar uma operação");
+        throw new Error('Usuário não logado.');
+    } else {
+        window.location.href = "listAllPage.html";
+    }
 }
 
+
 function redirecionarParaListMonth() {
+    var token = sessionStorage.getItem('token'); // Recupera o token do sessionStorage
+
+    if (token == null) {
+        alert("Faça login para realizar uma operação")
+        throw new Error('Usúario não logado.');
+    }
+
     window.location.href = "listMonthPage.html";
 }
 
@@ -157,5 +186,28 @@ function redirect(idSection) {
     }
 }
 
+function buttonLoginOut() {
+    sessionStorage.clear();
+
+    console.log('Token após limpar:', sessionStorage.getItem('token'));
+    window.location.href = '../login.html';
+}
+
+function checkTokenExpiration() {
+    var token = sessionStorage.getItem('token');
+    var tokenTimestamp = sessionStorage.getItem('tokenTimestamp');
+
+    if (token && tokenTimestamp) {
+        var now = new Date().getTime();
+        var twoHoursInMillis = 2 * 60 * 60 * 1000;
+        var tokenAge = now - tokenTimestamp;
+
+        if (tokenAge > twoHoursInMillis) {
+            sessionStorage.clear();
+            alert("Sua sessão expirou. Por favor, faça login novamente.");
+            window.location.href = 'login.html'; // Redireciona para a página de login
+        }
+    }
+}
 
 

@@ -1,6 +1,5 @@
-var token = localStorage.getItem('token');
-
 document.addEventListener('DOMContentLoaded', function () {
+
     const main = document.getElementById('listExpensePerMonth');
 
     document.getElementById('monthForm').addEventListener('submit', function (event) {
@@ -9,8 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
         carregarDadosReceita();
     });
 
+    var token = sessionStorage.getItem('token');
+
     function carregarDadosReceita() {
         var nomeMes = document.getElementById("monthInput").value.toLowerCase();
+        console.log(token)
 
         fetch(`http://localhost:8080/api/expense/listMonth/${nomeMes}`, {
             method: 'GET',
