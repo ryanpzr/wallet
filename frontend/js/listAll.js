@@ -1,9 +1,11 @@
-var token = localStorage.getItem('token');
-
 document.addEventListener('DOMContentLoaded', function () {
+
     const main = document.getElementById('ListAllExpenses');
 
+    var token = sessionStorage.getItem('token');
+
     function carregarDadosReceita() {
+        console.log(token)
 
         fetch('http://localhost:8080/api/expense/list', {
             method: 'GET',

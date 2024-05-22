@@ -3,45 +3,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-
-        fetchToken();
+        if (!form.dataset.submitting) {
+            form.dataset.submitting = 'true';
+            fetchToken();
+        }
     });
 });
 
 function fetchToken() {
-    try {
-        var user = document.getElementById('username').value;
-        var password = document.getElementById('password').value;
+    var user = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
 
-        var dados = {
-            login: user,
-            password: password
-        }
-
-        fetch('http://localhost:8080/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dados)
-        })
-            .then(data => {
-                if (data.token) {
-                    var token = data.token;
-                    sessionStorage.setItem('token', token);
-                    alert("Login realizado com sucesso!");
-                    window.location.href = "mainPage.html";
-                } else {
-                    throw new Error('Login inválido!');
-                }
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert('Login inválido!');
-            });
-
-    } catch (error) {
-        console.error('Erro ao enviar os dados para o backend:', error);
-        alert('Login inválido!');
+    var dados = {
+        login: user,
+        password: password
     }
+
+    fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Login inválido!');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.token) {
+                var token = data.token;
+                var timestamp = new Date().getTime();
+                sessionStorage.setItem('token', token);
+                sessionStorage.setItem('tokenTimestamp', timestamp);
+                alert("Login realizado com sucesso!");
+                window.location.href = "html/mainPage.html";
+            } else {
+                throw new Error('Login inválido!');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Login inválido!');
+        })
+        .finally(() => {
+            const form = document.querySelector('form');
+            delete form.dataset.submitting;
+        });
 }
