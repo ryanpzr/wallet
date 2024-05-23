@@ -41,11 +41,11 @@ public class LoginController {
     //Cria um usuario, é setado automaticamente uma role USER. Para ter a role ADM, é preciso inserir diretamente pelo bd
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid registerDTO data) {
-        if (this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
+        if (this.repository.findByLogin(data.register()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         UserRole userRole = UserRole.USER;
-        User newUser = new User(data.login(), encryptedPassword, userRole);
+        User newUser = new User(data.register(), encryptedPassword, userRole);
 
         this.repository.save(newUser);
 
