@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/login.css">
+    <title>Register</title>
+    <link rel="stylesheet" href="../css/register.css">
+
 </head>
 
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Register</h2>
         <form method="post">
             <div class="input-group">
                 <label for="username">Username</label>
@@ -20,12 +21,16 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" onclick="fetchToken()">Login</button>
-            <button type="submit" onclick="window.location.href = '/html/register.html'">Register</button>
+            <div class="input-group">
+                <label for="password">Confirm your Password</label>
+                <input type="password" id="confirmPassword" name="password" required>
+            </div>
+            <button type="submit" onclick="buttonRegister()">Register</button>
+            <button type="submit" onclick="window.location.href = '../login.html'">Login</button>
         </form>
-    </div>
 
-    <script src="js/login.js"></script>
+        <script src="../js/register.js"></script>
+    </div>
 </body>
 
 </html>

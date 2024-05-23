@@ -189,8 +189,19 @@ function redirect(idSection) {
 function buttonLoginOut() {
     sessionStorage.clear();
 
-    console.log('Token após limpar:', sessionStorage.getItem('token'));
     window.location.href = '../login.html';
+}
+
+function buttonLogin() {
+    sessionStorage.clear();
+
+    window.location.href = '../login.html';
+}
+
+function buttonRegister() {
+
+    window.location.href = '../html/register.html';
+
 }
 
 function checkTokenExpiration() {
