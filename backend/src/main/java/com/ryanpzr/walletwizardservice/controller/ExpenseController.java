@@ -20,18 +20,21 @@ public class ExpenseController {
     @Autowired
     private ExpenseService service;
 
+    //Lista todos os gastos
     @GetMapping("/list")
     public ResponseEntity<Page<Expense>> listExpense(Pageable pageable){
         Page<Expense> listExpense = service.listExpense(pageable);
         return ResponseEntity.ok().body(listExpense);
     }
 
+    //Lista os gastos filtrados pelo mês
     @GetMapping("/listMonth/{dateParam}")
     public ResponseEntity<Page<Expense>> listExpenseMonth(@PathVariable("dateParam") String dateParam, Pageable pageable){
         Page<Expense> listExpense = service.listExpenseMonth(dateParam, pageable);
         return ResponseEntity.ok().body(listExpense);
     }
 
+    //Posta um novo gasto
     @PostMapping
     @Transactional
     public ResponseEntity<Expense> InsertExpense(@RequestBody @Valid ExpenseDTO expensesDTO) throws ReceitaExpiradaException, NomeIgualException {
@@ -39,6 +42,7 @@ public class ExpenseController {
         return ResponseEntity.ok().body(data);
     }
 
+    //Deleta um gasto pelo nome da compra e pelo mês
     @DeleteMapping("/delete/{nomeDaCompra}/{mes}")
     @Transactional
     public ResponseEntity<Expense> deleteExpense(@PathVariable("nomeDaCompra") String nomeDaCompra, @PathVariable("mes") String mes) {

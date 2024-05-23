@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
+    // Configura o cors da aplicação, nesta classe está sendo liberada as requisições do tipo get, post, put e delete
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

@@ -27,6 +27,7 @@ public class LoginController {
     @Autowired
     private TokenService tokenService;
 
+    //Faz login enviando o username e a senha, se tiver correto com oque está no bd, retorna um token
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid loginDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
@@ -37,6 +38,7 @@ public class LoginController {
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
+    //Cria um usuario, é setado automaticamente uma role USER. Para ter a role ADM, é preciso inserir diretamente pelo bd
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid registerDTO data) {
         if (this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();

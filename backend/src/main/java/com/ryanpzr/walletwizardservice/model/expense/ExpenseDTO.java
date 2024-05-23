@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Positive;
 import java.time.LocalDate;
 
 public record ExpenseDTO(
+        // DTO que recebe os dados do gasto a ser cadastrado ao banco de dados e realiza as validações necessárias
         @NotBlank(message = "Nome da compra não pode ser nulo ou vazio")
         @Pattern(regexp = "[\\p{L}\\s]+", message = "Nome da compra deve conter apenas letras e espaços")
         String nomeCompra,
