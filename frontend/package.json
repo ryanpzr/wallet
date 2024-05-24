@@ -1,9 +1,14 @@
 {
-  "dependencies": {
-    "nodejs": "18.17.1",
-    "http-server": "14.1.1"
-  },
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
   "scripts": {
     "start-frontend": "http-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "14.1.1"
   }
 }
