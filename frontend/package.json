@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "nodejs": "v18.17.1",
+    "nodejs": "18.17.1",
     "http-server": "14.1.1"
   },
   "scripts": {
