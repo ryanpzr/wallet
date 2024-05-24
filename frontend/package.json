@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "nodejs": "^0.0.0",
+    "http-server": "14.1.1"
+  },
+  "scripts": {
+    "start-frontend": "http-server"
+  }
+}
