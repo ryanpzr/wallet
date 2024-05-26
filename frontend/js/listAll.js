@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function carregarDadosReceita() {
         console.log(token)
 
-        fetch('http://localhost:8080/api/expense/list', {
+        fetch('https://backend-production-4f9d.up.railway.app/api/expense/list', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

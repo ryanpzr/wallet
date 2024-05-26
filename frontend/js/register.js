@@ -26,7 +26,7 @@ function buttonRegister() {
         password: password
     }
 
-    fetch('http://localhost:8080/auth/register', {
+    fetch('https://backend-production-4f9d.up.railway.app/auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
