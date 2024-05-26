@@ -189,13 +189,13 @@ function redirect(idSection) {
 function buttonLoginOut() {
     sessionStorage.clear();
 
-    window.location.href = '../login.html';
+    window.location.href = '../index.html';
 }
 
 function buttonLogin() {
     sessionStorage.clear();
 
-    window.location.href = '../login.html';
+    window.location.href = '../index.html';
 }
 
 function buttonRegister() {
@@ -216,7 +216,7 @@ function checkTokenExpiration() {
         if (tokenAge > twoHoursInMillis) {
             sessionStorage.clear();
             alert("Sua sessão expirou. Por favor, faça login novamente.");
-            window.location.href = 'login.html'; // Redireciona para a página de login
+            window.location.href = 'index.html'; // Redireciona para a página de login
         }
     }
 }
