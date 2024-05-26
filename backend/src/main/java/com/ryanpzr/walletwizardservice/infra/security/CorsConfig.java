@@ -15,7 +15,8 @@ public class CorsConfig implements WebMvcConfigurer {
                         "http://192.168.25.4:8000",
                         "http://26.59.75.250:8000",
                         "http://172.22.64.1:8000",
-                        "http://127.0.0.1:8000"
+                        "http://127.0.0.1:8000",
+                        "https://frontend-production-7074.up.railway.app"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
