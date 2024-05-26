@@ -1,16 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form');
+function fetchToken(event) {
+    event.preventDefault();
 
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        if (!form.dataset.submitting) {
-            form.dataset.submitting = 'true';
-            fetchToken();
-        }
-    });
-});
-
-function fetchToken() {
     var user = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
@@ -53,3 +43,4 @@ function fetchToken() {
             delete form.dataset.submitting;
         });
 }
+

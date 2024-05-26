@@ -1,10 +1,5 @@
-const form = document.getElementById('formInput');
-form.addEventListener('submit', function (event) {
-    event.preventDefault(); // Previne o envio padrão do formulário
-    enviarDadosParaBackend(); // Chama a função para enviar os dados para o backend
-});
-
 document.addEventListener('DOMContentLoaded', function () {
+    event.preventDefault();
 
     var token = sessionStorage.getItem('token'); // Recuperando o token do sessionStorage
 
@@ -15,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const main = document.getElementById('listAll');
 
         function carregarDadosReceita() {
-            console.log(token);
+            event.preventDefault();
 
             fetch('https://backend-production-4f9d.up.railway.app/api/income?sort=id', {
                 method: 'GET',
@@ -68,7 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-function enviarDadosParaBackend() {
+function enviarDadosParaBackend(event) {
+    event.preventDefault();
 
     var token = sessionStorage.getItem('token'); // Recuperando o token do sessionStorage
 
@@ -77,60 +73,54 @@ function enviarDadosParaBackend() {
         throw new Error('Usúario não logado.');
     }
 
-    try {
+    var nome = document.getElementById('nome').value;
+    var valor = document.getElementById('valor').value;
+    var resumo = document.getElementById('resumo').value;
+    var data = document.getElementById('data').value;
+    var categoria = document.getElementById('categoria').value;
 
-        var nome = document.getElementById('nome').value;
-        var valor = document.getElementById('valor').value;
-        var resumo = document.getElementById('resumo').value;
-        var data = document.getElementById('data').value;
-        var categoria = document.getElementById('categoria').value;
+    var partesDaData = data.split("-");
+    var ano = parseInt(partesDaData[0]);
+    var mes = parseInt(partesDaData[1]) - 1;
+    var dia = parseInt(partesDaData[2]);
 
-        var partesDaData = data.split("-");
-        var ano = parseInt(partesDaData[0]);
-        var mes = parseInt(partesDaData[1]) - 1;
-        var dia = parseInt(partesDaData[2]);
+    var dataParaExtracao = new Date(ano, mes, dia);
+    var dataNumero = dataParaExtracao.getMonth() + 1;
 
-        var dataParaExtracao = new Date(ano, mes, dia);
-        var dataNumero = dataParaExtracao.getMonth() + 1;
+    var dados = {
+        nomeCompra: nome,
+        valorCompra: valor,
+        descricao: resumo,
+        date: data,
+        category: categoria,
+        incomeId: dataNumero
+    };
 
-        var dados = {
-            nomeCompra: nome,
-            valorCompra: valor,
-            descricao: resumo,
-            date: data,
-            category: categoria,
-            incomeId: dataNumero
-        };
-
-        // Enviando os dados para o backend usando fetch
-        fetch('https://backend-production-4f9d.up.railway.app/api/expense', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token // Adicionando o token JWT ao cabeçalho de autorização
-            },
-            body: JSON.stringify(dados)
+    // Enviando os dados para o backend usando fetch
+    fetch('https://backend-production-4f9d.up.railway.app/api/expense', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token // Adicionando o token JWT ao cabeçalho de autorização
+        },
+        body: JSON.stringify(dados)
+    })
+        .then(response => {
+            if (response.ok) {
+                // Se a resposta do servidor for bem-sucedida
+                console.log('Dados enviados com sucesso!');
+                alert("Dados enviados com sucesso!")
+                limparCamposDoFormulario()
+            } else {
+                // Se a resposta do servidor não for bem-sucedida
+                console.error('Erro ao enviar os dados:', response.statusText);
+                alert("Erro ao enviar os dados")
+                limparCamposDoFormulario()
+            }
         })
-            .then(response => {
-                if (response.ok) {
-                    // Se a resposta do servidor for bem-sucedida
-                    console.log('Dados enviados com sucesso!');
-                    alert("Dados enviados com sucesso!")
-                    limparCamposDoFormulario()
-                } else {
-                    // Se a resposta do servidor não for bem-sucedida
-                    console.error('Erro ao enviar os dados:', response.statusText);
-                    alert("Erro ao enviar os dados")
-                    limparCamposDoFormulario()
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao enviar os dados:', error);
-            });
-
-    } catch (error) {
-        console.error('Erro ao enviar os dados para o backend:', error);
-    }
+        .catch(error => {
+            console.error('Erro ao enviar os dados:', error);
+        });
 }
 
 function limparCamposDoFormulario() {
