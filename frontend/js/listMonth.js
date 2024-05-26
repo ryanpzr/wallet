@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var nomeMes = document.getElementById("monthInput").value.toLowerCase();
         console.log(token)
 
-        fetch(`http://localhost:8080/api/expense/listMonth/${nomeMes}`, {
+        fetch(`https://backend-production-4f9d.up.railway.app/api/expense/listMonth/${nomeMes}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

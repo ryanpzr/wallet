@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function carregarDadosReceita() {
             console.log(token);
 
-            fetch('http://localhost:8080/api/income?sort=id', {
+            fetch('https://backend-production-4f9d.up.railway.app/api/income?sort=id', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ function enviarDadosParaBackend() {
         };
 
         // Enviando os dados para o backend usando fetch
-        fetch('http://localhost:8080/api/expense', {
+        fetch('https://backend-production-4f9d.up.railway.app/api/expense', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
