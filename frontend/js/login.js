@@ -44,3 +44,9 @@ function fetchToken(event) {
         });
 }
 
+function redirectRegister() {
+
+    window.location.href = 'html/register.html';
+
+}
+
