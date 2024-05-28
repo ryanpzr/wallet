@@ -1,15 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form');
-
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        if (!form.dataset.submitting) {
-            form.dataset.submitting = 'true';
-            buttonRegister();
-        }
-    });
-});
-
 function buttonRegister() {
     var user = document.getElementById('username').value;
     var password = document.getElementById('password').value;
@@ -35,7 +23,7 @@ function buttonRegister() {
     })
         .then(() => {
             alert("Registro realizado com sucesso!");
-            window.location.href = "../login.html";
+            window.location.href = "../index.html";
 
         })
         .catch(error => {
