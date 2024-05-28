@@ -1,4 +1,6 @@
-function buttonRegister() {
+function buttonRegister(event) {
+    event.preventDefault();
+
     var user = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     var confirmPassword = document.getElementById('confirmPassword').value;
