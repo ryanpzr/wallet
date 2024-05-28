@@ -190,7 +190,7 @@ function buttonLogin() {
 
 function buttonRegister() {
 
-    window.location.href = '../html/register.html';
+    window.location.href = './html/register.html';
 
 }
 
