@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-@Transactional
 public interface IncomeRepository extends JpaRepository<Income, Long> {
     // Interface que realiza as QUERY personalizadas no banco de dados
     @Modifying
@@ -15,7 +14,7 @@ public interface IncomeRepository extends JpaRepository<Income, Long> {
     void atualizarTotal(@Param("valorCompra") Double valorCompra, @Param("nomeMes") String nomeMes);
 
     @Query("SELECT SUM(receita) FROM Income")
-    int findByReceita();
+    Integer findByReceita();
 
     @Query("SELECT i.mes FROM Income i WHERE mes = :mesReceita")
     String findByMes(String mesReceita);
