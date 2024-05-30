@@ -11,11 +11,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 
 public interface ExpensesRepository extends JpaRepository<Expense, Long> {
-    // Interface que realiza as QUERY personalizadas no banco de dados
+//     Interface que realiza as QUERY personalizadas no banco de dados
     @Query("SELECT e FROM Expense e JOIN FETCH e.income i WHERE i.mes = :dateParam")
     Page<Expense> listPageWithYear(@Param("dateParam") String dateParam, Pageable pageable);
     @Query("SELECT e FROM Expense e WHERE e.nomeCompra = :nomeDaCompra")
@@ -30,5 +31,5 @@ public interface ExpensesRepository extends JpaRepository<Expense, Long> {
     void atualizarTotalIncome(@Param("nomeDaCompra") String nomeDaCompra, @Param("mesParam") String mesParam);
 
     @Query("SELECT e FROM Expense e JOIN FETCH e.income i")
-    Page<Expense> listAllPages(Pageable pageable);
+    List<Expense> findAllExpenses();
 }

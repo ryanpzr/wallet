@@ -84,8 +84,8 @@ public class ExpenseService {
     }
 
     // Lista todos os gastos cadastrados
-    public Page<Expense> listExpense(Pageable pageable) {
-        Page<Expense> expensesPage = repository.listAllPages(pageable);
+    public List<Expense> listExpense() {
+        List<Expense> expensesPage = repository.findAllExpenses();
         validarListExpense.validar(expensesPage);
 
         return expensesPage;

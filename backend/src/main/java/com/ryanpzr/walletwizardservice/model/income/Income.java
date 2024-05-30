@@ -6,7 +6,7 @@ import lombok.*;
 
 // Entidade que cria a tabela no banco de dados e recebe os parâmetros do DTO
 @Entity(name = "Income")
-@Table(name = "Income")
+@Table(name = "income")
 @Getter
 @Setter
 @AllArgsConstructor
