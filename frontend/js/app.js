@@ -76,13 +76,16 @@ function enviarDadosParaBackend(event) {
     var nome = document.getElementById('nome').value;
     var valor = document.getElementById('valor').value;
     var resumo = document.getElementById('resumo').value;
-    var dataString = document.getElementById('data').value;
+    var data = document.getElementById('data').value;
     var categoria = document.getElementById('categoria').value;
 
-    var data = dateFns.parseISO(dataString);
+    var partesDaData = data.split("-");
+    var ano = parseInt(partesDaData[0]);
+    var mes = parseInt(partesDaData[1]) - 1;
+    var dia = parseInt(partesDaData[2]);
 
-    var dataParaExtracao = new Date(data);
-    var dataNumero = dataParaExtracao.getMonth() + 1; // Janeiro é 0!
+    var dataParaExtracao = new Date(ano, mes, dia);
+    var dataNumero = dataParaExtracao.getMonth() + 1;
 
     var dados = {
         nomeCompra: nome,
