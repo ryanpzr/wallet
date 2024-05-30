@@ -1,4 +1,5 @@
 package com.ryanpzr.walletwizardservice.model.user;
 
-public record registerDTO(String login, String password) {
+// DTO que registra os dados do usuário no banco de dados
+public record registerDTO(String register, String password) {
 }

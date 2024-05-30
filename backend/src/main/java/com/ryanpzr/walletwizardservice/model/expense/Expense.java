@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+// Entidade que cria a tabela no banco de dados e recebe os parâmetros do DTO
 @Entity(name = "Expense")
 @Table(name = "expenses")
 @Getter
@@ -21,13 +22,14 @@ public class Expense {
     private String nomeCompra;
     private Double valorCompra;
     private String descricao;
-    private LocalDate date;
+    private String date;
     @Enumerated(EnumType.STRING)
     private Category category;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "income_id")
     private Income income;
 
+    // Recebe os parâmetros do DTO -> ExpenseDTO
     public Expense(ExpenseDTO expensesDTO) {
         this.nomeCompra = expensesDTO.nomeCompra();
         this.valorCompra = expensesDTO.valorCompra();

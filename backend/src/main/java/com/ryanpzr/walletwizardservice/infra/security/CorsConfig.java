@@ -7,10 +7,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
+    // Configura o CORS da aplicação, liberando as requisições do tipo GET, POST, PUT e DELETE
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://192.168.25.4:8000")
+                .allowedOrigins(
+                        "http://192.168.25.4:8000",
+                        "http://26.59.75.250:8000",
+                        "http://172.22.64.1:8000",
+                        "http://127.0.0.1:8000",
+                        "https://backend-production-4f9d.up.railway.app",
+                        "https://frontend-production-7074.up.railway.app"
+
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
     }

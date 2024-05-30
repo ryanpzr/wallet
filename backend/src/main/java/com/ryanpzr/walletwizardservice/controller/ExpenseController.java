@@ -5,6 +5,7 @@ import com.ryanpzr.walletwizardservice.exceptions.ReceitaExpiradaException;
 import com.ryanpzr.walletwizardservice.model.expense.Expense;
 import com.ryanpzr.walletwizardservice.model.expense.ExpenseDTO;
 import com.ryanpzr.walletwizardservice.infra.service.ExpenseService;
+import com.ryanpzr.walletwizardservice.repositories.IncomeRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +21,24 @@ public class ExpenseController {
     @Autowired
     private ExpenseService service;
 
+    @Autowired
+    private IncomeRepository IncomeRepository;
+
+    //Lista todos os gastos
     @GetMapping("/list")
     public ResponseEntity<Page<Expense>> listExpense(Pageable pageable){
         Page<Expense> listExpense = service.listExpense(pageable);
         return ResponseEntity.ok().body(listExpense);
     }
 
-    @GetMapping("/listMonth")
-    public ResponseEntity<Page<Expense>> listExpenseMonth(@RequestParam(required = false) String dateParam, Pageable pageable){
+    //Lista os gastos filtrados pelo mês
+    @GetMapping("/listMonth/{dateParam}")
+    public ResponseEntity<Page<Expense>> listExpenseMonth(@PathVariable("dateParam") String dateParam, Pageable pageable){
         Page<Expense> listExpense = service.listExpenseMonth(dateParam, pageable);
         return ResponseEntity.ok().body(listExpense);
     }
 
+    //Posta um novo gasto
     @PostMapping
     @Transactional
     public ResponseEntity<Expense> InsertExpense(@RequestBody @Valid ExpenseDTO expensesDTO) throws ReceitaExpiradaException, NomeIgualException {
@@ -39,9 +46,10 @@ public class ExpenseController {
         return ResponseEntity.ok().body(data);
     }
 
-    @DeleteMapping("/delete")
+    //Deleta um gasto pelo nome da compra e pelo mês
+    @DeleteMapping("/delete/{nomeDaCompra}/{mes}")
     @Transactional
-    public ResponseEntity<Expense> deleteExpense(@RequestParam String nomeDaCompra, String mes) {
+    public ResponseEntity<Expense> deleteExpense(@PathVariable("nomeDaCompra") String nomeDaCompra, @PathVariable("mes") String mes) {
         Expense data = service.deleteExpense(nomeDaCompra, mes);
         return ResponseEntity.ok().body(data);
     }

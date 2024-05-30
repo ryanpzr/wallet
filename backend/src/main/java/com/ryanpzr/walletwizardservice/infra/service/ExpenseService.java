@@ -8,6 +8,7 @@ import com.ryanpzr.walletwizardservice.validacoes.Expense.MethodInsertDataExpens
 import com.ryanpzr.walletwizardservice.validacoes.Expense.MethodListExpense.ValidarListExpense;
 import com.ryanpzr.walletwizardservice.validacoes.Expense.MethodlistExpenseMonth.ValidarListExpenseMonth;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,14 +41,15 @@ public class ExpenseService {
     @Autowired
     private ValidarListExpense validarListExpense;
 
+    // Insere um dado ao banco de dados e atualiza o total na tabela Income de acordo com o mês passado
     public Expense insertData(ExpenseDTO expensesDTO) {
 
+        // Roda as validações
         validarInsertDataExpenses.forEach(v -> v.validar(expensesDTO));
 
+        // Tenta realizar a operação, caso não de retorna uma exception
         try {
-            String nomeMes = converterMes(expensesDTO.date());
-            IncomeRepository.atualizarTotal(expensesDTO.valorCompra(), nomeMes);
-
+            atualizarTotal(expensesDTO);
             return repository.save(new Expense(expensesDTO));
 
         } catch (Exception ex) {
@@ -56,14 +58,23 @@ public class ExpenseService {
         }
     }
 
-    private String converterMes(LocalDate date) {
-        int mes = date.getMonthValue();
-        return Month.of(mes).getDisplayName(TextStyle.FULL, Locale.getDefault());
+    @Transactional
+    private void atualizarTotal(ExpenseDTO expenseDTO) {
+        String nomeMes = converterMes(expenseDTO.date());
+        IncomeRepository.atualizarTotal(expenseDTO.valorCompra(), nomeMes);
     }
 
+    // Retorna o mês passado em formato numérico em uma String do mês
+    private String converterMes(String dateString) {
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
+        int mes = date.getMonthValue();
+        return Month.of(mes).getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
+    }
+
+    // Lista os gastos cadastrados de acordo com o mês passado
     public Page<Expense> listExpenseMonth(String dateParam, Pageable pageable) {
         try {
-            Page<Expense> expensesPage = repository.listarPageWithYear(dateParam, pageable);
+            Page<Expense> expensesPage = repository.listPageWithYear(dateParam, pageable);
             validarListExpenseMonthList.validar(expensesPage);
 
             return expensesPage;
@@ -73,21 +84,29 @@ public class ExpenseService {
         }
     }
 
+    // Lista todos os gastos cadastrados
     public Page<Expense> listExpense(Pageable pageable) {
-        Page<Expense> expensesPage = repository.findAll(pageable);
+        Page<Expense> expensesPage = repository.listAllPages(pageable);
         validarListExpense.validar(expensesPage);
 
         return expensesPage;
     }
 
+    // Deleta um gasto de acordo com o nome e um mês passado como parametro
     public Expense deleteExpense(String nomeDaCompra, String mesParam) {
         try {
+            // Verifica se o parâmetro retornado não é nulo, se for retorna uma exception
             Optional<Expense> paramNotFound = repository.findByNomeCompra(nomeDaCompra);
             if (paramNotFound.isEmpty()) {
                 throw new EntityNotFoundException("Registro não encontrado!");
             }
 
+            System.out.println(paramNotFound);
+
+            // Atualiza o valor na tabela Income de acordo com o nome e o mês passado como parâmetro
             repository.atualizarTotalIncome(nomeDaCompra, mesParam);
+
+            // Por último, o gasto é deletado da tabela Expense
             repository.deletarGasto(nomeDaCompra);
 
         } catch (AopInvocationException ex) {
