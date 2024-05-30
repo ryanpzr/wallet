@@ -14,7 +14,7 @@ public class ValidacaoParaUltrapassarReceita implements ValidarInsertDataExpense
 
     public void validar(ExpenseDTO dto){
 
-        if (dto.valorcompra() >= repository.findByReceita()) {
+        if (dto.valorCompra() >= repository.findByReceita()) {
             try {
                 throw new ReceitaExpiradaException("Você ira ultrapassar sua receita!");
             } catch (ReceitaExpiradaException e) {

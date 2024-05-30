@@ -17,7 +17,7 @@ public class ValidacaoNomeJaCadastradoNoBancoDeDados implements ValidarInsertDat
 
     public void validar(ExpenseDTO dto){
 
-        Optional<Expense> existeCompra = repository.findByNomeCompra(dto.nomecompra());
+        Optional<Expense> existeCompra = repository.findByNomeCompra(dto.nomeCompra());
         if (existeCompra.isPresent()) {
             try {
                 throw new NomeIgualException("Não é possivel cadastrar um gasto com o mesmo nome no banco de dados, tente novamente!");
