@@ -60,7 +60,8 @@ public class ExpenseService {
     }
 
     // Retorna o mês passado em formato numérico em uma String do mês
-    private String converterMes(LocalDate date) {
+    private String converterMes(String dateString) {
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
         int mes = date.getMonthValue();
         return Month.of(mes).getDisplayName(TextStyle.FULL, Locale.getDefault());
     }

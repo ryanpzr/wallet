@@ -22,7 +22,7 @@ public record ExpenseDTO(
         String descricao,
 
         @NotNull(message = "Data não pode ser nulo")
-        LocalDate date,
+        String date,
 
         @NotNull(message = "Categoria não pode ser nula")
         Category category,
