@@ -9,6 +9,8 @@ import com.ryanpzr.walletwizardservice.validacoes.Expense.MethodListExpense.Vali
 import com.ryanpzr.walletwizardservice.validacoes.Expense.MethodlistExpenseMonth.ValidarListExpenseMonth;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +32,7 @@ public class ExpenseService {
     private ExpensesRepository repository;
 
     @Autowired
-    private IncomeRepository IncomeRepository;
+    private IncomeRepository incomeRepository;
 
     @Autowired
     private List<ValidarInsertDataExpense> validarInsertDataExpenses;
@@ -41,27 +43,31 @@ public class ExpenseService {
     @Autowired
     private ValidarListExpense validarListExpense;
 
+    private static final Logger logger = LoggerFactory.getLogger(ExpenseService.class);
+
     // Insere um dado ao banco de dados e atualiza o total na tabela Income de acordo com o mês passado
     public Expense insertData(ExpenseDTO expensesDTO) {
 
         // Roda as validações
         validarInsertDataExpenses.forEach(v -> v.validar(expensesDTO));
 
-        // Tenta realizar a operação, caso não de retorna uma exception
+        // Tenta realizar a operação, caso não dê, retorna uma exceção
         try {
+            logger.info("Atualizando total para o mês: {}", expensesDTO.date());
             atualizarTotal(expensesDTO);
+            logger.info("Salvando nova despesa");
             return repository.save(new Expense(expensesDTO));
 
         } catch (Exception ex) {
+            logger.error("Erro ao inserir dados: ", ex);
             throw new EntityNotFoundException("Dados digitados incorretamente, tente novamente!" + ex);
-
         }
     }
-
     @Transactional
     private void atualizarTotal(ExpenseDTO expenseDTO) {
         String nomeMes = converterMes(expenseDTO.date());
-        IncomeRepository.atualizarTotal(expenseDTO.valorCompra(), nomeMes);
+        logger.info("Convertendo data {} para mês {}", expenseDTO.date(), nomeMes);
+        incomeRepository.atualizarTotal(expenseDTO.valorCompra(), nomeMes);
     }
 
     // Retorna o mês passado em formato numérico em uma String do mês

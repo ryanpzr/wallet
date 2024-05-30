@@ -23,9 +23,6 @@ public class ExpenseController {
     @Autowired
     private ExpenseService service;
 
-    @Autowired
-    private IncomeRepository IncomeRepository;
-
     //Lista todos os gastos
     @GetMapping("/list")
     public ResponseEntity<List<Expense>> listExpense(){

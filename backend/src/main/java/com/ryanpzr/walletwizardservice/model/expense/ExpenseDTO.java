@@ -27,6 +27,6 @@ public record ExpenseDTO(
         @NotNull(message = "Categoria não pode ser nula")
         Category category,
 
-        Long incomeId
+        Long income_id
 ) {
 }
