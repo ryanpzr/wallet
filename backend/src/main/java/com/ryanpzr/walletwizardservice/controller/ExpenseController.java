@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/expense")
 public class ExpenseController {
@@ -23,12 +25,12 @@ public class ExpenseController {
 
     //Lista todos os gastos
     @GetMapping("/list")
-    public ResponseEntity<Page<Expense>> listExpense(Pageable pageable){
-        Page<Expense> listExpense = service.listExpense(pageable);
+    public ResponseEntity<List<Expense>> listExpense(){
+        List<Expense> listExpense = service.listExpense();
         return ResponseEntity.ok().body(listExpense);
     }
 
-    //Lista os gastos filtrados pelo mês
+//    Lista os gastos filtrados pelo mês
     @GetMapping("/listMonth/{dateParam}")
     public ResponseEntity<Page<Expense>> listExpenseMonth(@PathVariable("dateParam") String dateParam, Pageable pageable){
         Page<Expense> listExpense = service.listExpenseMonth(dateParam, pageable);
@@ -37,7 +39,7 @@ public class ExpenseController {
 
     //Posta um novo gasto
     @PostMapping
-    public ResponseEntity<Expense> InsertExpense(@RequestBody ExpenseDTO expensesDTO) throws ReceitaExpiradaException, NomeIgualException {
+    public ResponseEntity<Expense> InsertExpense(@RequestBody @Valid ExpenseDTO expensesDTO) throws ReceitaExpiradaException, NomeIgualException {
         Expense data = service.insertData(expensesDTO);
         return ResponseEntity.ok().body(data);
     }
