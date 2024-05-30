@@ -12,11 +12,11 @@ public record ExpenseDTO(
         // DTO que recebe os dados do gasto a ser cadastrado ao banco de dados e realiza as validações necessárias
         @NotBlank(message = "Nome da compra não pode ser nulo ou vazio")
         @Pattern(regexp = "[\\p{L}\\s]+", message = "Nome da compra deve conter apenas letras e espaços")
-        String nomecompra,
+        String nomeCompra,
 
         @NotNull(message = "Valor da compra não pode ser nulo")
         @Positive(message = "Valor da compra deve ser um número positivo")
-        Double valorcompra,
+        Double valorCompra,
 
         @NotBlank(message = "Descrição da compra não pode ser nulo ou vazio")
         String descricao,
