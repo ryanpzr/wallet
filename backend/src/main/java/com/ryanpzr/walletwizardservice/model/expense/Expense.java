@@ -22,7 +22,7 @@ public class Expense {
     private String nomeCompra;
     private Double valorCompra;
     private String descricao;
-    private LocalDate date;
+    private String date;
     @Enumerated(EnumType.STRING)
     private Category category;
     @ManyToOne(fetch = FetchType.LAZY)
