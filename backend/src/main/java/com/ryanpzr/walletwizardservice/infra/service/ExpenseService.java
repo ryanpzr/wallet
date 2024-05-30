@@ -46,7 +46,6 @@ public class ExpenseService {
     private static final Logger logger = LoggerFactory.getLogger(ExpenseService.class);
 
     // Insere um dado ao banco de dados e atualiza o total na tabela Income de acordo com o mês passado
-    @Transactional
     public Expense insertData(ExpenseDTO expensesDTO) {
 
         // Roda as validações
@@ -64,7 +63,7 @@ public class ExpenseService {
             throw new EntityNotFoundException("Dados digitados incorretamente, tente novamente!" + ex);
         }
     }
-
+    @Transactional
     private void atualizarTotal(ExpenseDTO expenseDTO) {
         String nomeMes = converterMes(expenseDTO.date());
         logger.info("Convertendo data {} para mês {}", expenseDTO.date(), nomeMes);
