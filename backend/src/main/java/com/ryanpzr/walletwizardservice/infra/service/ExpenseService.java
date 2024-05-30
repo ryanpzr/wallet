@@ -68,7 +68,7 @@ public class ExpenseService {
     private void atualizarTotal(ExpenseDTO expenseDTO) {
         String nomeMes = converterMes(expenseDTO.date());
         logger.info("Convertendo data {} para mês {}", expenseDTO.date(), nomeMes);
-        incomeRepository.atualizarTotal(expenseDTO.valorCompra(), nomeMes);
+        incomeRepository.atualizarTotal(expenseDTO.valorcompra(), nomeMes);
     }
 
     // Retorna o mês passado em formato numérico em uma String do mês

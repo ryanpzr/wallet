@@ -31,11 +31,11 @@ public class Expense {
 
     // Recebe os parâmetros do DTO -> ExpenseDTO
     public Expense(ExpenseDTO expensesDTO) {
-        this.nomeCompra = expensesDTO.nomeCompra();
-        this.valorCompra = expensesDTO.valorCompra();
+        this.nomeCompra = expensesDTO.nomecompra();
+        this.valorCompra = expensesDTO.valorcompra();
         this.descricao = expensesDTO.descricao();
         this.date = expensesDTO.date();
         this.category = expensesDTO.category();
-        this.income = new Income(expensesDTO.incomeId());
+        this.income = new Income(expensesDTO.income_id());
     }
 }
