@@ -88,12 +88,12 @@ function enviarDadosParaBackend(event) {
     var dataNumero = dataParaExtracao.getMonth() + 1;
 
     var dados = {
-        nomeCompra: nome,
-        valorCompra: valor,
+        nomecompra: nome,
+        valorcompra: valor,
         descricao: resumo,
         date: data,
         category: categoria,
-        incomeId: dataNumero
+        income_id: dataNumero
     };
 
     // Enviando os dados para o backend usando fetch
