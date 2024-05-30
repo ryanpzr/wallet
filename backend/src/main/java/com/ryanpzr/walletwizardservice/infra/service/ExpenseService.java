@@ -8,6 +8,7 @@ import com.ryanpzr.walletwizardservice.validacoes.Expense.MethodInsertDataExpens
 import com.ryanpzr.walletwizardservice.validacoes.Expense.MethodListExpense.ValidarListExpense;
 import com.ryanpzr.walletwizardservice.validacoes.Expense.MethodlistExpenseMonth.ValidarListExpenseMonth;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.aop.AopInvocationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,6 +42,7 @@ public class ExpenseService {
     private ValidarListExpense validarListExpense;
 
     // Insere um dado ao banco de dados e atualiza o total na tabela Income de acordo com o mês passado
+    @Transactional
     public Expense insertData(ExpenseDTO expensesDTO) {
 
         // Roda as validações

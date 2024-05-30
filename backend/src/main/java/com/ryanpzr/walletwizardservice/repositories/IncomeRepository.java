@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 public interface IncomeRepository extends JpaRepository<Income, Long> {
     // Interface que realiza as QUERY personalizadas no banco de dados
     @Modifying
+    @Transactional
     @Query("UPDATE Income SET total = (total + :valorCompra) WHERE mes = :nomeMes")
     void atualizarTotal(@Param("valorCompra") Double valorCompra, @Param("nomeMes") String nomeMes);
 
