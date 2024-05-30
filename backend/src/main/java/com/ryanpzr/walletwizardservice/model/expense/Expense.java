@@ -36,6 +36,6 @@ public class Expense {
         this.descricao = expensesDTO.descricao();
         this.date = expensesDTO.date();
         this.category = expensesDTO.category();
-        this.income = new Income(expensesDTO.incomeId());
+        this.income = new Income(expensesDTO.income_id());
     }
 }
