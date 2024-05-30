@@ -42,7 +42,6 @@ public class ExpenseService {
     private ValidarListExpense validarListExpense;
 
     // Insere um dado ao banco de dados e atualiza o total na tabela Income de acordo com o mês passado
-    @Transactional
     public Expense insertData(ExpenseDTO expensesDTO) {
 
         // Roda as validações
@@ -50,15 +49,19 @@ public class ExpenseService {
 
         // Tenta realizar a operação, caso não de retorna uma exception
         try {
-            String nomeMes = converterMes(expensesDTO.date());
-            IncomeRepository.atualizarTotal(expensesDTO.valorCompra(), nomeMes);
-
+            atualizarTotal(expensesDTO);
             return repository.save(new Expense(expensesDTO));
 
         } catch (Exception ex) {
             throw new EntityNotFoundException("Dados digitados incorretamente, tente novamente!" + ex);
 
         }
+    }
+
+    @Transactional
+    private void atualizarTotal(ExpenseDTO expenseDTO) {
+        String nomeMes = converterMes(expenseDTO.date());
+        IncomeRepository.atualizarTotal(expenseDTO.valorCompra(), nomeMes);
     }
 
     // Retorna o mês passado em formato numérico em uma String do mês
