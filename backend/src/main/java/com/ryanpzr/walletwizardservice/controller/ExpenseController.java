@@ -5,6 +5,7 @@ import com.ryanpzr.walletwizardservice.exceptions.ReceitaExpiradaException;
 import com.ryanpzr.walletwizardservice.model.expense.Expense;
 import com.ryanpzr.walletwizardservice.model.expense.ExpenseDTO;
 import com.ryanpzr.walletwizardservice.infra.service.ExpenseService;
+import com.ryanpzr.walletwizardservice.repositories.IncomeRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class ExpenseController {
 
     @Autowired
     private ExpenseService service;
+
+    @Autowired
+    private IncomeRepository IncomeRepository;
 
     //Lista todos os gastos
     @GetMapping("/list")
