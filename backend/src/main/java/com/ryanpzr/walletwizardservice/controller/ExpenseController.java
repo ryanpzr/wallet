@@ -41,7 +41,7 @@ public class ExpenseController {
     //Posta um novo gasto
     @PostMapping
     @Transactional
-    public ResponseEntity<Expense> InsertExpense(@RequestBody @Valid ExpenseDTO expensesDTO) throws ReceitaExpiradaException, NomeIgualException {
+    public ResponseEntity<Expense> InsertExpense(@RequestBody ExpenseDTO expensesDTO) throws ReceitaExpiradaException, NomeIgualException {
         Expense data = service.insertData(expensesDTO);
         return ResponseEntity.ok().body(data);
     }
