@@ -74,7 +74,7 @@ function enviarDadosParaBackend(event) {
     }
 
     var nome = document.getElementById('nome').value;
-    var valor = document.getElementById('valor').value;
+    var valor = parseFloat(document.getElementById('valor').value);
     var resumo = document.getElementById('resumo').value;
     var data = document.getElementById('data').value;
     var categoria = document.getElementById('categoria').value;
